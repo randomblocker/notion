@@ -22,31 +22,30 @@
       font-family: "Lexend", sans-serif;
       background-color: #362a2b;
       color: #e5ebf3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .slider {
-      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 100vw;
       height: 100vh;
+      position: relative;
+      overflow: hidden;
     }
 
     .slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
+      min-width: 100%;
       height: 100%;
-      opacity: 0;
-      transition: opacity 0.4s ease-in-out;
+      transition: transform 0.5s ease-in-out;
       background-size: cover;
       background-position: center;
     }
 
-    .slide.current {
-      opacity: 1;
-    }
-
-    .slide:first-child {
+    .slide:nth-child(1) {
       background-image: url("VC Deck 1.png");
     }
 
@@ -93,7 +92,7 @@
 
 <body>
   <div class="slider">
-    <div class="slide current"></div>
+    <div class="slide"></div>
     <div class="slide"></div>
     <div class="slide"></div>
     <div class="buttons">
@@ -105,60 +104,29 @@
     const slides = document.querySelectorAll(".slide");
     const nextButton = document.getElementById("next");
     const prevButton = document.getElementById("prev");
+    let currentIndex = 0;
+
+    const updateSlides = () => {
+      slides.forEach((slide, index) => {
+        slide.style.transform = `translateX(${(index - currentIndex) * 100}%)`;
+      });
+    };
 
     const nextSlide = () => {
-      const current = document.querySelector(".current");
-      current.classList.remove("current");
-      if (current.nextElementSibling) {
-        current.nextElementSibling.classList.add("current");
-      } else {
-        slides[0].classList.add("current");
-      }
+      currentIndex = (currentIndex + 1) % slides.length;
+      updateSlides();
     };
 
     const prevSlide = () => {
-      const current = document.querySelector(".current");
-      current.classList.remove("current");
-      if (current.previousElementSibling) {
-        current.previousElementSibling.classList.add("current");
-      } else {
-        slides[slides.length - 1].classList.add("current");
-      }
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      updateSlides();
     };
 
     nextButton.addEventListener("click", nextSlide);
     prevButton.addEventListener("click", prevSlide);
 
-    // Full-screen functionality
-    function toggleFullScreen() {
-      const slider = document.querySelector('.slider');
-      if (!document.fullscreenElement) {
-        if (slider.requestFullscreen) {
-          slider.requestFullscreen();
-        } else if (slider.mozRequestFullScreen) { // Firefox
-          slider.mozRequestFullScreen();
-        } else if (slider.webkitRequestFullscreen) { // Chrome, Safari and Opera
-          slider.webkitRequestFullscreen();
-        } else if (slider.msRequestFullscreen) { // IE/Edge
-          slider.msRequestFullscreen();
-        }
-      } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-        } else if (document.mozCancelFullScreen) {
-          document.mozCancelFullScreen();
-        } else if (document.webkitExitFullscreen) {
-          document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) {
-          document.msExitFullscreen();
-        }
-      }
-    }
-
-    // Add click event listener to each slide
-    slides.forEach(slide => {
-      slide.addEventListener('click', toggleFullScreen);
-    });
+    // Initial setup
+    updateSlides();
   </script>
 
 </body>
