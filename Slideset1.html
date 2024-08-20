@@ -27,20 +27,22 @@
       align-items: center;
     }
 
-    .slider {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .slider-container {
       width: 100vw;
       height: 100vh;
-      position: relative;
       overflow: hidden;
+      position: relative;
+    }
+
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      height: 100%;
     }
 
     .slide {
       min-width: 100%;
       height: 100%;
-      transition: transform 0.5s ease-in-out;
       background-size: cover;
       background-position: center;
     }
@@ -91,10 +93,12 @@
 </head>
 
 <body>
-  <div class="slider">
-    <div class="slide"></div>
-    <div class="slide"></div>
-    <div class="slide"></div>
+  <div class="slider-container">
+    <div class="slider">
+      <div class="slide"></div>
+      <div class="slide"></div>
+      <div class="slide"></div>
+    </div>
     <div class="buttons">
       <button id="prev"><i class="fas fa-arrow-left"></i></button>
       <button id="next"><i class="fas fa-arrow-right"></i></button>
@@ -102,14 +106,13 @@
   </div>
   <script>
     const slides = document.querySelectorAll(".slide");
+    const slider = document.querySelector(".slider");
     const nextButton = document.getElementById("next");
     const prevButton = document.getElementById("prev");
     let currentIndex = 0;
 
     const updateSlides = () => {
-      slides.forEach((slide, index) => {
-        slide.style.transform = `translateX(${(index - currentIndex) * 100}%)`;
-      });
+      slider.style.transform = `translateX(-${currentIndex * 100}%)`;
     };
 
     const nextSlide = () => {
@@ -128,7 +131,6 @@
     // Initial setup
     updateSlides();
   </script>
-
 </body>
 
 </html>
