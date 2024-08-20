@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Full-Screen Responsive Image Slider</title>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
   <style>
@@ -22,7 +23,7 @@
 
     .slider {
       position: relative;
-      width: 100vw;
+      width: 100%;
       height: 100vh;
       overflow: hidden;
     }
@@ -43,27 +44,29 @@
     }
 
     .slide:first-child {
-      background: url("VC Deck 1.png") no-repeat center top/cover;
+      background: url("VC Deck 1.png") no-repeat center center/cover;
     }
 
     .slide:nth-child(2) {
-      background: url("VC Deck 2.png") no-repeat center top/cover;
+      background: url("VC Deck 2.png") no-repeat center center/cover;
     }
 
     .slide:nth-child(3) {
-      background: url("VC Deck 3.png") no-repeat center top/cover;
+      background: url("VC Deck 3.png") no-repeat center center/cover;
     }
 
     .buttons button#prev {
       position: absolute;
       top: 50%;
       left: 1rem;
+      transform: translateY(-50%);
     }
 
     .buttons button#next {
       position: absolute;
       top: 50%;
       right: 1rem;
+      transform: translateY(-50%);
     }
 
     .buttons button {
@@ -71,7 +74,7 @@
       background-color: transparent;
       color: #e5ebf3;
       cursor: pointer;
-      padding: 13px 15px;
+      padding: 10px;
       border-radius: 50%;
       outline: none;
     }
@@ -81,21 +84,9 @@
       color: #362a2b;
     }
 
-    @media (min-width: 640px) and (min-height: 640px) {
-      .slide .content {
-        bottom: 70px;
-        left: -600px;
-        width: 600px;
-        padding: 2rem;
-        line-height: 1.6;
-      }
-
-      .slide .content h1 {
-        font-size: 2rem;
-      }
-
-      .slide.current .content {
-        transform: translateX(600px);
+    @media (max-width: 640px) {
+      .buttons button {
+        padding: 8px;
       }
     }
   </style>
