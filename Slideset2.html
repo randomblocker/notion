@@ -50,7 +50,6 @@
       background: url("VC Deck 5.png") no-repeat center top/cover;
     }
 
-
     .buttons button#prev {
       position: absolute;
       top: 50%;
@@ -102,14 +101,12 @@
   <div class="slider">
     <div class="slide current"></div>
     <div class="slide"></div>
-    <div class="slide"></div>
   </div>
   <div class="buttons">
     <button id="prev"><i class="fas fa-arrow-left"></i></button>
     <button id="next"><i class="fas fa-arrow-right"></i></button>
   </div>
   <script>
-    const slider = document.querySelector('.slider');
     const slides = document.querySelectorAll(".slide");
     const nextButton = document.getElementById("next");
     const prevButton = document.getElementById("prev");
@@ -120,7 +117,7 @@
       if (current.nextElementSibling) {
         current.nextElementSibling.classList.add("current");
       } else {
-        slides[0].classList.add("current");
+        slides[0].classList.add("current"); // Loop back to the first slide
       }
     };
 
@@ -130,7 +127,7 @@
       if (current.previousElementSibling) {
         current.previousElementSibling.classList.add("current");
       } else {
-        slides[slides.length - 1].classList.add("current");
+        slides[slides.length - 1].classList.add("current"); // Loop back to the last slide
       }
     };
 
@@ -139,6 +136,7 @@
 
     // Full-screen functionality
     function toggleFullScreen() {
+      const slider = document.querySelector('.slider');
       if (!document.fullscreenElement) {
         if (slider.requestFullscreen) {
           slider.requestFullscreen();
